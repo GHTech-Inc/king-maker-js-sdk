@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 const API = {
     login : function(data, successCallback, errorCallback){
         let url = this._getUrlWithApiDomain('/login');
@@ -45,79 +47,78 @@ const API = {
         this._call('DELETE', url, null, successCallback, errorCallback);
     },
     
-    
     createPost : function(data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post');
+        let url = this._getUrlWithApiDomain('/posts');
 
         this._call('POST', url, data, successCallback, errorCallback);
     },
     updatePost : function(id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + id);
+        let url = this._getUrlWithApiDomain('/posts/' + id);
 
         this._call('PUT', url, data, successCallback, errorCallback);
     },
     getPost : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + id);
+        let url = this._getUrlWithApiDomain('/posts/' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getPostByUser : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post?user=' + id);
+        let url = this._getUrlWithApiDomain('/posts?user=' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getPostBySchool : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post?=school' + id);
+        let url = this._getUrlWithApiDomain('/posts?=school' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     deletePost : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + id);
+        let url = this._getUrlWithApiDomain('/posts/' + id);
 
         this._call('DELETE', url, null, successCallback, errorCallback);
     },
     createPostComment : function(post_id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comments' );
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments' );
 
         this._call('POST', url, data, successCallback, errorCallback);
     },
     updatePostComment : function(post_id, comment_id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comments/' + comment_id );
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments/' + comment_id );
 
         this._call('PUT', url, data, successCallback, errorCallback);
     },
     deletePostComment : function(post_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comments/' + comment_id );
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments/' + comment_id );
 
         this._call('DELETE', url, data, successCallback, errorCallback);
     },
     getPostComments : function(post_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comments');
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments');
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getPostComment : function(post_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comments/' + comment_id);
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments/' + comment_id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     togglePostLike : function(post_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/like');
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/toggleLike');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     togglePostHeart : function(post_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/heart');
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/toggleHeart');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     togglePostCommentLike : function(post_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comment/'+ comment_id + '/like');
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments/'+ comment_id + '/toggleLike');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     togglePostCommentHeart : function(post_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/post/' + post_id + '/comment/'+ comment_id + '/heart');
+        let url = this._getUrlWithApiDomain('/posts/' + post_id + '/comments/'+ comment_id + '/toggleHeart');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
@@ -125,85 +126,85 @@ const API = {
 
 
     createDiscussion : function(data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion');
+        let url = this._getUrlWithApiDomain('/discussions');
 
         this._call('POST', url, data, successCallback, errorCallback);
     },
     updateDiscussion : function(id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + id);
+        let url = this._getUrlWithApiDomain('/discussions/' + id);
 
         this._call('PUT', url, data, successCallback, errorCallback);
     },
     getDiscussion : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + id);
+        let url = this._getUrlWithApiDomain('/discussions/' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getDiscussionByUser : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion?user=' + id);
+        let url = this._getUrlWithApiDomain('/discussions?user=' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getDiscussionBySchool : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion?=school' + id);
+        let url = this._getUrlWithApiDomain('/discussions?=school' + id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     deleteDiscussion : function(id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + id);
+        let url = this._getUrlWithApiDomain('/discussions/' + id);
 
         this._call('DELETE', url, null, successCallback, errorCallback);
     },
     createDiscussionComment : function(discussion_id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comments' );
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments' );
 
         this._call('POST', url, data, successCallback, errorCallback);
     },
     updateDiscussionComment : function(discussion_id, comment_id, data, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comments/' + comment_id );
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments/' + comment_id );
 
         this._call('PUT', url, data, successCallback, errorCallback);
     },
     deleteDiscussionComment : function(discussion_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comments/' + comment_id );
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments/' + comment_id );
 
         this._call('DELETE', url, data, successCallback, errorCallback);
     },
     getDiscussionComments : function(discussion_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comments');
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments');
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     getDiscussionComment : function(discussion_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comments/' + comment_id);
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments/' + comment_id);
 
         this._call('GET', url, null, successCallback, errorCallback);
     },
     toggleDiscussionLike : function(discussion_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/like');
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/toggleLike');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     toggleDiscussionHeart : function(discussion_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/heart');
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/toggleHeart');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     toggleDiscussionCommentLike : function(discussion_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comment/'+ comment_id + '/like');
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments/'+ comment_id + '/toggleLike');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     toggleDiscussionCommentHeart : function(discussion_id, comment_id, successCallback, errorCallback){
-        let url = this._getUrlWithApiDomain('/discussion/' + discussion_id + '/comment/'+ comment_id + '/heart');
+        let url = this._getUrlWithApiDomain('/discussions/' + discussion_id + '/comments/'+ comment_id + '/toggleHeart');
 
         this._call('POST', url, null, successCallback, errorCallback);
     },
     _getUrlWithApiDomain: function (url) {
-        return process.env.REACT_APP_BW_API_URL + url;
+        return process.env['API_URL'] + url;
     },
-    _getAuthToken: function () {
-        return process.env.REACT_APP_BW_AUTH_TOKEN;
+    _getAuthToken: async function () {
+        return await AsyncStorage.getItem('AUTH_TOKEN');
     },
     _call: function (method, url, options,successCallback, errorCallback) {
 
